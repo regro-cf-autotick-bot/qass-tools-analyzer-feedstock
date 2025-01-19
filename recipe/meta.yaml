@@ -6,22 +6,22 @@ package:
   version: {{ version }}
 
 source:
-  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/qass_tools_analyzer-{{ version }}.tar.gz
+  url: https://pypi.org/packages/source/{{ name[0] }}/{{ name }}/qass_tools_analyzer-{{ version }}.tar.gz
   sha256: ee35610cdb6f1947d91a8b06fb0b278a36382f634959b6450b2d4ca7b5a90e51
 
 build:
   noarch: python
   script: {{ PYTHON }} -m pip install . -vv --no-deps --no-build-isolation
-  number: 0
+  number: 1
 
 requirements:
   host:
-    - python >=3.6
+    - python {{ python_min }}
     - setuptools >=42
     - wheel
     - pip
   run:
-    - python >=3.7
+    - python >={{ python_min }}
     - sqlalchemy >=1.4.36
     - tqdm >=4.64.0
     - deprecated >=1.2.13
@@ -38,6 +38,7 @@ test:
     - pip check
   requires:
     - pip
+    - python {{ python_min }}
 
 about:
   home: https://qass.net/qass-open-source
